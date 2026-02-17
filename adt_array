@@ -1,0 +1,28 @@
+class Array:
+    def __init__(self, size, default=None):
+        if size <= 0:
+            raise ValueError("Ukuran array harus lebih dari 0")
+
+        self._size = size
+        self._data = [default for _ in range(size)]
+
+    def _check_index(self, index):
+        if not 0 <= index < self._size:
+            raise IndexError("Index di luar batas")
+
+    def get(self, index):
+        self._check_index(index)
+        return self._data[index]
+
+    def set(self, index, value):
+        self._check_index(index)
+        self._data[index] = value
+
+    def length(self):
+        return self._size
+
+    def __len__(self):
+        return self._size
+
+    def __str__(self):
+        return str(self._data)

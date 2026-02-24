@@ -1,0 +1,10 @@
+def first_recurring_char(text):
+    seen = set()
+    for char in text:
+        if char in seen:
+            return char
+        seen.add(char)
+    return None
+
+# Contoh
+print(first_recurring_char("abcaed"))

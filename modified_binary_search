@@ -1,0 +1,50 @@
+def countOccurrences(sortedList, target):
+
+    # mencari kemunculan pertama
+    def findFirst():
+        left, right = 0, len(sortedList) - 1
+        first = -1
+
+        while left <= right:
+            mid = (left + right) // 2
+
+            if sortedList[mid] == target:
+                first = mid
+                right = mid - 1
+            elif sortedList[mid] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+
+        return first
+
+    # mencari kemunculan terakhir
+    def findLast():
+        left, right = 0, len(sortedList) - 1
+        last = -1
+
+        while left <= right:
+            mid = (left + right) // 2
+
+            if sortedList[mid] == target:
+                last = mid
+                left = mid + 1
+            elif sortedList[mid] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+
+        return last
+
+    first = findFirst()
+    last = findLast()
+
+    if first == -1:
+        return 0
+
+    return last - first + 1
+
+
+# contoh
+print(countOccurrences([1,2,4,4,4,4,7,9,12],4))
+print(countOccurrences([1,2,4,4,4,4,7,9,12],5))

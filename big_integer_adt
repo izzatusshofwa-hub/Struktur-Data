@@ -1,0 +1,123 @@
+# ====== Node untuk Linked List ======
+class Node:
+    def __init__(self, digit):
+        self.digit = digit
+        self.next = None
+
+
+# ====== Big Integer (Linked List) ======
+class BigIntegerLL:
+    def __init__(self, value="0"):
+        self.head = None
+        for d in value[::-1]:
+            new_node = Node(int(d))
+            new_node.next = self.head
+            self.head = new_node
+
+    def toString(self):
+        result = ""
+        temp = self.head
+        while temp:
+            result = str(temp.digit) + result
+            temp = temp.next
+        return result
+
+    def toInt(self):
+        return int(self.toString())
+
+    def add(self, other):
+        return BigIntegerLL(str(self.toInt() + other.toInt()))
+
+
+# ====== Big Integer (Python List) ======
+class BigIntegerList:
+    def __init__(self, value="0"):
+        self.digits = [int(d) for d in value]
+
+    def toString(self):
+        return ''.join(map(str, self.digits))
+
+    def toInt(self):
+        return int(self.toString())
+
+    # ===== Arithmetic =====
+    def add(self, other):
+        return BigIntegerList(str(self.toInt() + other.toInt()))
+
+    def sub(self, other):
+        return BigIntegerList(str(self.toInt() - other.toInt()))
+
+    def mul(self, other):
+        return BigIntegerList(str(self.toInt() * other.toInt()))
+
+    def div(self, other):
+        return BigIntegerList(str(self.toInt() // other.toInt()))
+
+    def mod(self, other):
+        return BigIntegerList(str(self.toInt() % other.toInt()))
+
+    def power(self, other):
+        return BigIntegerList(str(self.toInt() ** other.toInt()))
+
+    # ===== Bitwise =====
+    def bitwise(self, other, op):
+        a = self.toInt()
+        b = other.toInt()
+
+        if op == '&':
+            return BigIntegerList(str(a & b))
+        elif op == '|':
+            return BigIntegerList(str(a | b))
+        elif op == '^':
+            return BigIntegerList(str(a ^ b))
+        elif op == '<<':
+            return BigIntegerList(str(a << b))
+        elif op == '>>':
+            return BigIntegerList(str(a >> b))
+
+    # ===== Assignment Operators =====
+    def assign(self, other, op):
+        if op == '+=':
+            self.digits = list(map(int, str(self.toInt() + other.toInt())))
+        elif op == '-=':
+            self.digits = list(map(int, str(self.toInt() - other.toInt())))
+        elif op == '*=':
+            self.digits = list(map(int, str(self.toInt() * other.toInt())))
+        elif op == '//=':
+            self.digits = list(map(int, str(self.toInt() // other.toInt())))
+        elif op == '%=':
+            self.digits = list(map(int, str(self.toInt() % other.toInt())))
+        elif op == '**=':
+            self.digits = list(map(int, str(self.toInt() ** other.toInt())))
+        elif op == '&=':
+            self.digits = list(map(int, str(self.toInt() & other.toInt())))
+        elif op == '|=':
+            self.digits = list(map(int, str(self.toInt() | other.toInt())))
+        elif op == '^=':
+            self.digits = list(map(int, str(self.toInt() ^ other.toInt())))
+        elif op == '<<=':
+            self.digits = list(map(int, str(self.toInt() << other.toInt())))
+        elif op == '>>=':
+            self.digits = list(map(int, str(self.toInt() >> other.toInt())))
+
+
+# ====== Testing ======
+if __name__ == "__main__":
+
+    print("=== Linked List ===")
+    a = BigIntegerLL("45839")
+    b = BigIntegerLL("123")
+    print("A + B =", a.add(b).toString())
+
+    print("\n=== List ===")
+    x = BigIntegerList("100")
+    y = BigIntegerList("20")
+    print("Tambah:", x.add(y).toString())
+    print("Kali:", x.mul(y).toString())
+
+    print("\n=== Bitwise ===")
+    print("AND:", x.bitwise(y, '&').toString())
+
+    print("\n=== Assignment ===")
+    x.assign(y, "+=")
+    print("+= :", x.toString())
